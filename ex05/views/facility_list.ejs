@@ -1,0 +1,43 @@
+<!-- 시설물관리 -->
+<form name="frm" method="post" action="update">
+<table>
+  <tr>
+    <td width=100 class="title">시설물이름</td>
+    <td><input type="text" id="name" size="20"></td>
+    <td><button id="btnInsert">등록</button></td>
+  </tr>
+</table>
+<table id="tbl" style="height: fit-content;">
+<script id="temp" type="text/x-handlebars-template">
+  <tr class="top">
+    <td width=100>번호</td>
+    <td width=350>시설물이름</td>
+    <td width=100>수정</td>
+    <td width=100>삭제</td>
+  </tr>
+  {{#each.}}
+  <tr class="row">
+    <td><input type="text" id="fid" size="8" value="{{fid}}"></td>
+    <td><input type="text" id="name" size="8" value="{{name}}"></td>
+    <td><button class="update">수정</button></td>
+    <td><button class="delete">삭제</button></td>
+  </tr>
+  {{/each}}     
+</script>
+</table>
+</form>
+<!-- 시설물관리 -->
+<script>
+    getFacility();
+    function getFacility(){
+      $.ajax({
+        type : "get",
+        dataType : "json",
+        url : "/facility/list",
+        success:function(data){
+          var template = Handlebars.compile($("#temp").html());
+          $("#tbl").html(template(data));
+        }
+      });
+    }
+</script>

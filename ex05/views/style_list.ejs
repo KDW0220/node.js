@@ -1,0 +1,66 @@
+<!-- 시설물관리 -->
+<table method="post">
+    <tr>
+      <td width=100 class="title">스타일이름</td>
+      <td><input type="text" id="name" size="20"></td>
+      <td><button id="btnInsert">등록</button></td>
+    </tr>
+</table>
+
+<table id="tbl" style="height: fit-content;">
+  <script id="temp" type="text/x-handlebars-template">
+    <tr class="top">
+      <td width=100>번호</td>
+      <td width=350>스타일이름</td>
+      <td width=100>수정</td>
+      <td width=100>삭제</td>
+    </tr>
+    {{#each.}}
+    <tr class="row">
+      <td><input type="text" name="sid" size="8" value="{{sid}}" readonly></td>
+      <td><input type="text" size="8" value="{{name}}"></td>
+      <td><button class="update">수정</button></td>
+      <td><button class="button" id="btnDelete">삭제</button></td>
+    </tr>
+    {{/each}}     
+  </script>
+</table>
+  <!-- 시설물관리 -->
+<script>
+    var sid=$("#sid").val();
+    getStyle();
+
+    $("#btnInsert").on("click", function(){ 
+        var name=$("#name").val();
+        if(name==""){
+            alert("스타일명을 입력하세요!");
+            $("#name").focus();return;
+        }
+        else if(!confirm(`${sid}:${name}을(를) 등록하실래요?`)) return;
+        $.ajax({
+            type: "post",
+            url:"/style/insert",
+            data:{sid: sid,name:name},
+            success:function(){
+                alert("스타일 등록성공!");
+                getStyle();
+            }
+        });
+    });
+
+      function getStyle(){
+        $.ajax({
+          type : "get",
+          dataType : "json",
+          url : "/style/list",
+          success:function(data){
+            var template = Handlebars.compile($("#temp").html());
+            $("#tbl").html(template(data));
+          }
+        });
+      }
+
+      
+
+      
+</script>

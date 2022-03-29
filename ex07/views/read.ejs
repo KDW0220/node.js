@@ -1,0 +1,154 @@
+<form name="frm" method="post" action="update">
+    <table>
+        <tr>
+            <td class="title" width=100>상품코드</td>
+            <td width=500><input type="text" name="code" value="<%=vo.code%>" size="3" readonly></td>
+        </tr>
+        
+        <tr>
+            <td class="title" width=100>상품이름</td>
+            <td width=500><input type="text" name="title" value="<%=vo.title%>"></td>
+        </tr>
+
+        <tr>
+            <td class="title" width=100>상품가격</td>
+            <td width=500><input type="text" name="price" value="<%=vo.price%>">원</td>
+        </tr>
+
+        <tr>
+            <td class="title" width=100>상품이미지</td>
+            <td width=500>
+                <img src="<%=vo.image%>" width=150 id="image">
+                <input type="file" name="image" size="30" style="display: none;">
+            </td>
+        </tr>
+</table>
+    <div id="buttons">
+        <input type="submit" value="수정" class="button">
+        <input type="reset" value="취소" class="button">
+        <input type="button" value="삭제" class="button" id="btnDelete">
+        <input type="button" value="목록" onclick="location.href='/'" class="button">
+    </div>
+</form>
+<hr/>
+<h3><%=vo.title%>의 상품리뷰</h3>
+<table style="border: 1px solid gray; margin-bottom: 30px;" method="post">
+    <tr>
+        <td width=650>
+            <textarea id="text" cols="100" rows="10"></textarea>
+        </td>
+    </tr>
+    <tr>
+        <td><input type="button" value="등록" class="button" id="btnInsert"></td>
+    </tr>
+</table>
+
+
+<div id="review" style="width: 900px; margin: 0px auto;"></div>
+<script id="temp" type="text/x-handlebars-template">
+    {{#each .}}
+    <div style="font-size:12px; font-weight: bold; margin-bottom: 10px">
+        <span><h4>작성자:{{uid}}  </h4></span>
+        <span>작성일:{{fdate}}</span>
+        <button class="small" style="float: right;" rid="{{id}}">삭제</button>
+    </div>
+    <div style="border-bottom:1px dotted gray; margin-bottom: 20px; padding: 5px">
+        {{text}}
+    </div>
+    {{/each}}
+</script>
+
+<script>
+    var code="<%=vo.code%>"
+
+    $("#review").on("click", "button .small", function(){
+        var id=$(this).attr("rid");
+        if(!confirm('삭제하실래요?')) return;
+        $.ajax({
+            type: "get",
+            url: "/review/delete",
+            data: {id:id},
+            success:function(data){
+                alert("삭제 완료!");
+                getReview();
+            }
+        })
+    });
+
+    $("#btnInsert").on("click", function(){   
+        var text=$("#text").val();
+        var uid="user03";
+        if(text==""){
+            alert("내용을 입력하세요!");
+            $("#text").focus();
+        }else{
+            if(!confirm(`리뷰를 등록하실래요?`)) return;
+            $.ajax({
+                type : "post",
+                url : "/review/insert",
+                data : {code:code, uid:uid, text:text},
+                success:function(data){
+                    alert("등록성공!");
+                    getReview();
+                }
+            });
+        }
+    });
+
+    getReview();
+
+    function getReview(){
+      $.ajax({
+        type : "get",
+        dataType : "json",
+        url : "/review/list",
+        data : {code:code},
+        success:function(data){
+          var template = Handlebars.compile($("#temp").html());
+          $("#review").html(template(data));
+        }
+    });
+    }
+
+
+    //이미지 미리보기
+    $("#image").on("click", function(e){
+        $(frm.image).click();
+    });
+    $(frm.image).on("change", function(e){
+        var reader=new FileReader();
+        reader.onload=function(e){
+            $("#image").attr("src", e.target.result);
+        }
+        reader.readAsDataURL(this.files[0]);
+    });
+
+    $("#btnDelete").on("click", function(){   
+        if(!confirm(`${code}을(를) 삭제하실래요?`)) return;
+        frm.action="delete";
+        frm.submit();
+    });
+
+    $(frm).on("submit",function(e){
+        e.preventDefault();
+        let title=$(frm.title).val();
+        let code=$(frm.code).val();
+        let price=$(frm.price).val();
+        let image=$(frm.image).val();
+        if(title==""){
+            alert("상품명을 입력하세요!");
+            $(frm.title).focus();
+        }else if(price==""){
+            alert("가격을 입력하세요!");
+            $(frm.price).focus();
+        }else if(image==""){
+            alert("이미지를 선택하세요!");
+        }else{
+            if(!confirm(`${image}:${title}:${price}을(를) 수정하실래요?`)) return;
+            frm.submit();
+        }
+    });
+</script>
+
+
+

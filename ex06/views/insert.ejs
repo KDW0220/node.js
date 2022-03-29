@@ -1,0 +1,64 @@
+<form name="frm" method="post" action="">
+    <table>
+            <tr>
+                <td class="title" width=100>상품코드</td>
+                <td width=500><input type="text" name="code" value="<%=newCode%>" size="3" readonly></td>
+            </tr>
+            
+            <tr>
+                <td class="title" width=100>상품이름</td>
+                <td width=500><input type="text" name="name"></td>
+            </tr>
+
+            <tr>
+                <td class="title" width=100>상품가격</td>
+                <td width=500><input type="text" name="price">원</td>
+            </tr>
+
+            <tr>
+                <td class="title" width=100>상품이미지</td>
+                <td width=500>
+                    <img src="http://placehold.it/170x150" width=150 id="image">
+                    <input type="file" name="image" size="30" style="display: none;">
+                </td>
+            </tr>
+    </table>
+    <div id="buttons">
+        <input type="submit" value="저장" class="button">
+        <input type="reset" value="취소" class="button">
+        <input type="button" value="목록" onclick="location.href='/'" class="button">
+    </div>
+</form>
+
+<script>
+    //이미지 미리보기
+    $("#image").on("click", function(e){
+        $(frm.image).click();
+    });
+    $(frm.image).on("change", function(e){
+        var reader=new FileReader();
+        reader.onload=function(e){
+            $("#image").attr("src", e.target.result);
+        }
+        reader.readAsDataURL(this.files[0]);
+    });
+
+    $(frm).on("submit",function(e){
+        e.preventDefault();
+        let name=$(frm.name).val();
+        let price=$(frm.price).val();
+        let image=$(frm.image).val();
+        if(name==""){
+            alert("상품명을 입력하세요!");
+            $(frm.name).focus();
+        }else if(price==""){
+            alert("가격을 입력하세요!");
+            $(frm.price).focus();
+        }else if(image==""){
+            alert("이미지를 선택하세요!");
+        }else{
+            if(!confirm(`${image}:${name}:${price}을(를) 등록하실래요?`)) return;
+            frm.submit();
+        }
+    });
+</script>

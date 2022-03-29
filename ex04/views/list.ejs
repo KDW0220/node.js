@@ -1,0 +1,36 @@
+<table id="tbl" style="height: fit-content;"></table>
+<script id="temp" type="text/x-handlebars-template">
+    <tr>
+        <td colspan="4">
+          <a href="/product/insert">상품등록</a>
+        </td>
+      </tr>
+  <tr class="top">
+    <td width=150>상품번호</td>
+    <td width=150>상품명</td>
+    <td width=150>상품가격</td>
+    <td width=150>제조사</td>
+  </tr>
+  {{#each.}}
+  <tr class="row" onclick="location.href='/product/read?code={{code}}'">
+    <td>{{code}}</td>
+    <td>{{name}}</td>
+    <td>{{price}}</td>
+    <td>{{company}}</td>
+  </tr>
+  {{/each}}
+</script>
+<script>
+    getProduct();
+    function getProduct(){
+      $.ajax({
+        type : "get",
+        dataType : "json",
+        url : "/product/list",
+        success:function(data){
+          var template = Handlebars.compile($("#temp").html());
+          $("#tbl").html(template(data));
+        }
+      });
+    }
+  </script>

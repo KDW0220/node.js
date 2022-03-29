@@ -1,0 +1,36 @@
+* {margin:0px; padding:0px;}
+body {width:960px;margin:0px auto;background: gray;}
+#page {background: white; height: 1500px;}
+h1, h5, h3 {text-align: center; padding-top: 50px;}
+table {margin:0px auto; margin-top: 50px; border-collapse: collapse;}
+td, th {border:1px solid green; padding:10px;}
+#buttons {width: 600px; margin:0px auto; text-align:center; padding:20px;}
+#buttons .button, button { /*버튼 스타일*/
+    width:80px; 
+    padding:5px; 
+    background:green; 
+    color:white;
+    border-radius: 5px;
+    border:none;
+    cursor: pointer;
+}
+
+input[type="text"], input[type="password"] 
+{ padding: 5px;border:1px solid gray; }
+
+a {text-decoration: none; color:green; font-size:15px;}
+a:hover {color: red;}
+
+#menu {padding: 20px; border:1px dotted gray; margin-top:20px;}
+
+.row:hover {background: gray; color: white;}
+
+.top{background-color: rgb(196, 241, 196); color: rgba(3, 39, 3, 0.397);}
+
+.button , input[type="button"]{width:80px; 
+    padding:5px; 
+    background:green; 
+    color:white;
+    border-radius: 5px;
+    border:none;
+    cursor: pointer;}

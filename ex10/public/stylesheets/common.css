@@ -1,0 +1,53 @@
+* {margin:0px; padding:0px;}
+body {width:960px;margin:0px auto;background: gray;}
+#bottom{margin-top: 100px;}
+#page {background:white; height: fit-content;}
+div h4{margin: 20px; margin-top: -10px;}
+h1, h5, h3 {text-align: center; padding: 10px;}
+table {margin:0px auto; margin-top: 50px; border-collapse: collapse;}
+tr, td{border:1px solid rgba(0, 0, 0, 0.637); padding:10px;}
+#buttons {width: 600px; margin:0px auto; text-align:center; padding:20px;}
+#buttons .button, button { /*버튼 스타일*/
+    width:80px; 
+    padding:5px; 
+    background:rgba(219, 137, 126, 0.801);
+    color:white;
+    border-radius: 5px;
+    border:none;
+    cursor: pointer;
+}
+
+input[type="text"], input[type="password"] 
+{ padding: 5px;  border: 1px solid rgba(0, 0, 0, 0.596);}
+
+a {text-decoration: none;  font-size:15px; color: black; font: border;}
+a:hover {color: red;}
+
+#menu {padding: 10px; border:1px dotted gray; margin-top:20px; margin-bottom: 20px;}
+
+.row:hover {background: gray; color: white;}
+
+.title, .top{background-color: rgba(46, 42, 42, 0.705); color: white; overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;}
+
+.button , input[type="button"]{width:80px; 
+    padding:5px; 
+    background:rgba(219, 137, 126, 0.801); 
+    color:white;
+    border-radius: 5px;
+    border:none;
+    cursor: pointer;}
+
+.small{
+    border-radius: 5px;
+    background:rgba(219, 137, 126, 0.801);
+    color: white;
+    padding: 3px;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+button:disabled{background-color: gray;}
+
+.small:hover{background-color: cornflowerblue;}

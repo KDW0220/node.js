@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <script src="http://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
+    <link rel='stylesheet' href='/stylesheets/common.css' />
+  </head>
+  <body>
+    <div id="page">
+      <div id="top"><h1><%=title%></h1></div>
+      <div id="center">
+        <div style="padding-left: 30px;">
+          <a href="/">캠핑장관리</a>
+              |
+              <a href="/facility">시설물관리</a>
+              |
+              <a href="/style">스타일관리</a>    
+        </div>
+        <%-include(pageName)%>
+      </div>
+      <div id="bottom"><h3>Coptright 2022. 인천일보아카데미 All Rights Reverved</h3></div>
+    </div>
+  </body>
+</html>

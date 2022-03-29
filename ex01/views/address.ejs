@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="http://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
+    <title><%=title%></title>
+    <link rel="stylesheet" href="/stylesheet/common.css">
+</head>
+<body>
+    <div id="page">
+        <h1><%=title%></h1>
+        <div id="top"></div>
+        <div id="center">
+            <div id="address"></div>
+            <script id="temp" type="text/x-handlebars-template">
+            {{#each .}}
+                <h3>[{{id}}]{{name}} : {{tel}} : {{address}}</h3>
+            {{/each}}
+        </script>
+    </div>
+    <div id="bottom"></div>
+    </div>
+</body>
+<script>
+    getAddress();
+    function getAddress(){
+        $.ajax({
+            type : "get",
+            dataType : "json",
+            url : "/address/list",
+            success: function(data){
+                let template = Handlebars.compile($("#temp").html());
+                $("#address").html(template(data));
+            }
+        });
+    }
+</script>
+</html>

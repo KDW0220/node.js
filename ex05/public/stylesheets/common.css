@@ -1,0 +1,47 @@
+* {margin:0px; padding:0px;}
+body {width:960px;margin:0px auto;background: gray;}
+#page {background:rgb(247, 247, 131); height: 1500px;}
+h1, h5, h3 {text-align: center; padding-top: 50px;}
+table {margin:0px auto; margin-top: 50px; border-collapse: collapse;}
+td, th {border:1px dotted red; padding:10px;}
+#buttons {width: 600px; margin:0px auto; text-align:center; padding:20px;}
+#buttons .button, button { /*버튼 스타일*/
+    width:80px; 
+    padding:5px; 
+    background:rgba(153, 11, 235, 0.589); 
+    color:white;
+    border-radius: 5px;
+    border:none;
+    cursor: pointer;
+}
+
+input[type="text"], input[type="password"] 
+{ padding: 5px; background-color: rgb(247, 247, 131); border: 1px solid rgb(247, 247, 131);}
+
+a {text-decoration: none;  font-size:15px;}
+a:hover {color: red;}
+
+#menu {padding: 20px; border:1px dotted gray; margin-top:20px;}
+
+.row:hover {background: gray; color: white;}
+
+.title, .top{background-color: rgba(153, 11, 235, 0.295);}
+
+.button , input[type="button"]{width:80px; 
+    padding:5px; 
+    background:rgba(153, 11, 235, 0.582); 
+    color:white;
+    border-radius: 5px;
+    border:none;
+    cursor: pointer;}
+
+.small{
+    border-radius: 5px;
+    background-color: red;
+    color: white;
+    padding: 3px;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.small:hover{background-color: cornflowerblue;}

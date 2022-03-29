@@ -1,0 +1,88 @@
+<form name="frm" method="post" action="">
+    <table>
+        <tr>
+            <td class="title" colspan="4"><h3><%=title%></h3></td>
+        </tr>
+        <tr>
+            <td class="title" width=100>아이디</td>
+            <td width=250><input type="text" name="id">&nbsp;<span class="small">중복확인</span></td>
+        </tr>
+        <tr>
+            <td class="title" width=100>비밀번호</td>
+            <td width=250><input type="password" name="pass"></td>
+        </tr>
+        <tr>
+            <td class="title" width=100>비밀번호 확인</td>
+            <td width=250><input type="password" name="re_pass"></td>
+        </tr>
+        <tr>
+            <td class="title" width=100>이름</td>
+            <td width=250><input type="text" name="name"></td>
+        </tr>
+
+    </table>
+    <div id="buttons">
+        <input type="submit" value="회원가입" class="button">
+    </div>
+</form>
+
+<script>
+    var id_check=0;
+
+    $(".small").on("click", function(){   
+        let id=$(frm.id).val();
+        $.ajax({
+            type:"post",
+            url:"/users/register/check",
+            data:{id:id},
+            success:function(data){
+                if(data.result==1){
+                    alert("존재하는 아이디입니다!");
+                    $(frm.id).focus();
+                }else if(data.result==0){
+                    alert("가능한 아이디입니다!");
+                    id_check=1;
+                }
+            }
+        })
+    });
+
+    $(frm).on("submit",function(e){
+        e.preventDefault();
+        let id=$(frm.id).val();
+        let pass=$(frm.pass).val();
+        let re_pass=$(frm.re_pass).val();
+        let name=$(frm.name).val();
+        if(id==""){
+            alert("아이디를 입력하세요!");
+            $(frm.id).focus();
+        }else if(id_check==0){
+            alert("중복확인을 해주세요!");
+            $(frm.id).focus();
+        }else if(pass==""){
+            alert("비밀번호를 입력하세요!");
+            $(frm.pass).focus();
+        }else if(re_pass==""){
+            alert("비밀번호를 다시 입력하세요!");
+            $(frm.re_pass).focus();
+        }else if(pass!=re_pass){
+            alert("비밀번호가 일치하지 않습니다");
+            $(frm.re_pass).focus();
+        }
+        else if(name==""){
+            alert("이름을 입력하세요!");
+            $(frm.name).focus();
+        }else{
+            if(!confirm(`계정을 등록하실래요?`)) return;
+            $.ajax({
+                type:"post",
+                url:"/users/register",
+                data:{id:id, pass:pass, name:name},
+                success:function(data){
+                    alert("성공");
+                    frm.submit();   
+                }
+            })
+        }
+    });
+</script>

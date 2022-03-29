@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/common.css' />
+    <script src="http://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
+    
+  </head>
+  <body>
+    <div id="page">
+      <div id="top">
+        <h1><%= title %></h1>
+      </div>
+      <div id="center">
+        <table id="tbl"></table>
+        <script id="temp" type="text/x-handlebars-template">
+          
+          <tr class="top">
+            <td width=100>번호</td>
+            <td width=100>이름</td>
+            <td width=200>전화번호</td>
+            <td width=300>주소</td>
+          </tr>
+          {{#each.}}
+          <tr class="row" onclick="location.href='/address/read?id={{id}}'">
+            <td>{{id}}</td>
+            <td>{{name}}</td>
+            <td>{{tel}}</td>
+            <td>{{address}}</td>
+          </tr>
+          {{/each}}
+      </script>
+      </div>
+      <div id="botttom"><h5>CopyRight 2022. 인천일보아카데미 Reserve All Right.</h5></div>
+    </div>
+  </body>
+  <script>
+    getAddress();
+    function getAddress(){
+      $.ajax({
+        type : "get",
+        dataType : "json",
+        url : "/address",
+        success:function(data){
+          var template = Handlebars.compile($("#temp").html());
+          $("#tbl").html(template(data));
+        }
+      });
+    }
+  </script>
+</html>
